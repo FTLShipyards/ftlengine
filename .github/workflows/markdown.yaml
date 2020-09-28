@@ -1,0 +1,19 @@
+name: Markdown
+
+on: [push]
+
+jobs:
+  lint-markdown:
+    name: Lint Markdown Files
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: check out code
+        uses: actions/checkout@v2
+        
+      - name: lint markdown files
+        uses: docker://avtodev/markdown-lint:v1
+        with:
+          rules: './.github/config/markdown-rules.js'
+          config: './.github/config/markdown-config.yaml'
+          ignore: './CHANGELOG.md'
+          args: '.'
