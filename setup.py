@@ -14,6 +14,60 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Jakob-Daugherty/ftlengine",
     packages=find_packages(),
+    install_requires=[
+        'attrs',
+        'boto3',
+        'click',
+        'docker',
+        'dockerpty',
+        'ntplib', # Not sure if we need this
+        'PyYAML',
+        'requests',
+        'scandir',
+        'six',
+    ],
+    test_suite='tests',
+    setup_requires=[
+        'pytest-runner',
+    ],
+    tests_require=[
+        'pytest',
+        'pytest-cov',
+    ],
+    entry_points='''
+        [console_scripts]
+        ftl = src.cli:cli
+
+        [ftlengine.plugins]
+        attach = src.plugins.attach:AttachPlugin
+        boot = src.plugins.boot:BootPlugin
+        build = src.plugins.build:BuildPlugin
+        build_scripts = src.plugins.build_scripts:BuildScriptsPlugin
+        container = src.plugins.container:ContainerPlugin
+        doctor = src.plugins.doctor:DoctorPlugin
+        gc = src.plugins.gc:GcPlugin
+        help = src.plugins.help:HelpPlugin
+        hosts = src.plugins.hosts:HostsPlugin
+        images = src.plugins.images:ImagesPlugin
+        jump = src.plugins.jump:JumpPlugin
+        legacy_env = src.plugins.legacy_env:LegacyEnvPlugin
+        mounts = src.plugins.mounts:DevModesPlugin
+        profile = src.plugins.profile:ProfilesPlugin
+        ps = src.plugins.ps:PsPlugin
+        registry = src.plugins.registry:RegistryPlugin
+        aws = src.plugins.aws:AwsPlugin
+        run = src.plugins.run:RunPlugin
+        ssh_agent = src.plugins.ssh_agent:SSHAgentPlugin
+        system = src.plugins.system:SystemContainerBuildPlugin
+        tail = src.plugins.tail:TailPlugin
+        volume = src.plugins.volume:VolumePlugin
+        waits = src.plugins.waits:WaitsPlugin
+        upgrade = src.plugins.upgrade:UpgradePlugin
+
+        doctor_time = src.exams.doctor_time:DoctorTimePlugin
+        doctor_connectivity = src.exams.doctor_connectivity:DoctorConnectivityPlugin
+        doctor_docker_mac = src.exams.doctor_docker_mac:DoctorDockerMacPlugin
+    ''',
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
