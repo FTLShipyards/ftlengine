@@ -1,18 +1,19 @@
-import setuptools
+from setuptools import setup, find_packages
+from src import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="ftlengine",
-    version="0.0.1",
+    version=__version__,
     author="Jakob Daugherty",
     author_email="jakob.daugherty@quarkworks.co",
     description="A Docker based development and deployment engine",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Jakob-Daugherty/ftlengine",
-    packages=setuptools.find_packages(),
+    packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
