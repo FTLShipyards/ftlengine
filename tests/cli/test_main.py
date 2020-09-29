@@ -1,5 +1,5 @@
 from click.testing import CliRunner
-from ftlengine.cli import cli
+from src.cli import cli
 
 
 def test_app():

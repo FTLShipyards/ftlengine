@@ -1,0 +1,31 @@
+name: Python
+
+on: [push]
+
+jobs:
+  lint-python:
+    name: Lint Python Files
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: check out code
+        uses: actions/checkout@v2
+      - name: install dependencies
+        run: |
+          sudo apt install python3-pip && sudo pip3 install flake8
+      - name: run flake8
+        run: |
+          flake8 .
+  test-python:
+    name: Test Python Files
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: check out code 
+        uses: actions/checkout@v2
+      - name: install dependencies
+        run: |
+          sudo apt install python3-pip
+          sudo pip3 install setuptools
+          sudo pip3 install pytest pytest-pythonpath pytest-cov
+      - name: run pytest
+        run: |
+          pytest .

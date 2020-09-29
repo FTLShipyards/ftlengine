@@ -1,4 +1,4 @@
-from ftl.exceptions import DockerRuntimeError
+from ..exceptions import DockerRuntimeError
 
 
 class PluginConfig():

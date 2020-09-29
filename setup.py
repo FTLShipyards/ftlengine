@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 from src import __version__
 
 with open("README.md", "r") as fh:
@@ -13,7 +13,16 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Jakob-Daugherty/ftlengine",
-    packages=find_packages(),
+    packages=[
+        "src",
+        "src.cli",
+        "src.containers",
+        "src.docker",
+        "src.plugins",
+        "src.utils",
+        "src.exams",
+
+    ],
     install_requires=[
         'attrs',
         'boto3',
@@ -57,7 +66,6 @@ setup(
         registry = src.plugins.registry:RegistryPlugin
         aws = src.plugins.aws:AwsPlugin
         run = src.plugins.run:RunPlugin
-        ssh_agent = src.plugins.ssh_agent:SSHAgentPlugin
         system = src.plugins.system:SystemContainerBuildPlugin
         tail = src.plugins.tail:TailPlugin
         volume = src.plugins.volume:VolumePlugin

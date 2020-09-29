@@ -1,14 +1,15 @@
 import sys
 import attr
 import click
-import ftl
+
 
 
 from distutils.version import StrictVersion
-from ftl.constants import PluginHook
-from ftl.plugins.base import BasePlugin
-from ftl.plugins.plugin_config import PluginConfig
-from ftl.cli.colors import RED
+from ..constants import PluginHook
+from ..plugins.base import BasePlugin
+from ..plugins.plugin_config import PluginConfig
+from ..cli.colors import RED
+from ..version import __version__
 
 
 def _check_version(name, expected, found, upgrade_message):
@@ -33,12 +34,12 @@ class UpgradePlugin(BasePlugin):
         if not self.plugin_config.get_config(self, 'enable', False):
             return
         _check_version(
-            'ftl',
+            'ftlengine',
             self.plugin_config.get_config(
                 self,
                 'required_ftl_version',
             ),
-            ftl.__version__,
+            __version__,
             self.plugin_config.get_config(
                 self,
                 'ftl_upgrade_message',
