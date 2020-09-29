@@ -7,4 +7,4 @@ def test_app():
     result = runner.invoke(cli)
     assert result.exit_code == 1
     print(result.output)
-    assert 'Usage:' in result.output
+    assert 'FTL_HOME is not set\n' in result.output
