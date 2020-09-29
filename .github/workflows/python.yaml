@@ -3,29 +3,27 @@ name: Python
 on: [push]
 
 jobs:
-  lint-python:
-    name: Lint Python Files
-    runs-on: [ubuntu-latest]
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+
     steps:
-      - name: check out code
-        uses: actions/checkout@v2
-      - name: install dependencies
-        run: |
-          sudo apt install python3-pip && sudo pip3 install flake8
-      - name: run flake8
-        run: |
-          flake8 .
-  test-python:
-    name: Test Python Files
-    runs-on: [ubuntu-latest]
-    steps:
-      - name: check out code 
-        uses: actions/checkout@v2
-      - name: install dependencies
-        run: |
-          sudo apt install python3.8 python3.8-pip
-          sudo pip3 install setuptools wheel
-          sudo pip3 install pytest pytest-pythonpath pytest-cov
-      - name: run pytest
-        run: |
-          python3 setup.py test
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest setuptools wheel
+    - name: Lint with flake8
+      run: |
+        flake8 .
+    - name: Test with pytest
+      run: |
+        pytest
+        # python setup.py test
