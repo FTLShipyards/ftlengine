@@ -3,7 +3,6 @@ import attr
 import click
 
 
-
 from distutils.version import StrictVersion
 from ..constants import PluginHook
 from ..plugins.base import BasePlugin

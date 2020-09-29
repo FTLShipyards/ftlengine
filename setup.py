@@ -29,7 +29,7 @@ setup(
         'click',
         'docker',
         'dockerpty',
-        'ntplib', # Not sure if we need this
+        'ntplib',  # Not sure if we need this
         'PyYAML',
         'requests',
         'scandir',

@@ -219,7 +219,6 @@ def cli(app):
     app.load_profiles()
 
 
-
 # Run CLI if called directly
 if __name__ == '__main__':
     cli()
