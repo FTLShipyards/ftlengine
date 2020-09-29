@@ -40,6 +40,7 @@ setup(
         'pytest-runner',
     ],
     tests_require=[
+        'attrs',
         'pytest',
         'pytest-cov',
     ],
