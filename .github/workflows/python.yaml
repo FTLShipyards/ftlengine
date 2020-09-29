@@ -28,6 +28,6 @@ jobs:
           sudo pip3 install pytest pytest-pythonpath pytest-cov
       - name: run pytest
         run: |
-          python3 setup.pu sdist
+          python3 setup.py sdist
           pip3 install dist/*
           python3 setup.py test
