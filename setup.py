@@ -42,6 +42,7 @@ setup(
     tests_require=[
         'attrs',
         'click',
+        'six',
         'pytest',
         'pytest-cov',
     ],
