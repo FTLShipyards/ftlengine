@@ -7,4 +7,4 @@ def test_app():
     result = runner.invoke(cli)
     assert result.exit_code == 0
     print(result.output)
-    assert 'FTL_HOME is not set\n' in result.output
+    assert 'Usage: cli [OPTIONS] COMMAND [ARGS]...\n\n  FTL, the Docker-based development environment management tool.\n\n' in result.output  # noqa
