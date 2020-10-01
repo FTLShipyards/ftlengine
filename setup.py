@@ -55,6 +55,7 @@ setup(
         boot = src.plugins.boot:BootPlugin
         build = src.plugins.build:BuildPlugin
         build_scripts = src.plugins.build_scripts:BuildScriptsPlugin
+        chart = src.plugins.chart:ChartPlugin
         container = src.plugins.container:ContainerPlugin
         doctor = src.plugins.doctor:DoctorPlugin
         gc = src.plugins.gc:GcPlugin
@@ -83,6 +84,8 @@ setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
+        "Intended Audience :: Developers",
+        "Development Status :: 2 - Pre-Alpha",
     ],
     python_requires='>=3.6',
 )

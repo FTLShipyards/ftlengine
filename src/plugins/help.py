@@ -26,7 +26,7 @@ def help(ctx, command_name):
     if command_name:
         subcommand = cli.get_command(None, command_name)
         if subcommand is None:
-            click.echo(RED('There is no commance {}'.format(command_name)))
+            click.echo(RED('There is no command {}'.format(command_name)))
             sys.exit(1)
         else:
             # Override info name so help prints correctly
