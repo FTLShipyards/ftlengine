@@ -6,6 +6,7 @@ import os
 import traceback
 import attr
 import requests
+import yaml
 
 from .alias_group import SpellcheckableAliasableGroup
 from .colors import PURPLE, RED, YELLOW
@@ -37,7 +38,7 @@ class App(object):
     @classmethod
     def get_default_containers(cls):
         if not hasattr(cls, "containers"):
-            cls.load_config()
+            cls.load_containers()
         return cls.containers
 
     @classmethod
@@ -45,8 +46,13 @@ class App(object):
         default_config_paths = ()
         cls.config = Config(default_config_paths)
         cls.hosts = HostManager.from_config(cls.config)
-        cls.containers = ContainerGraph(cls.config["ftl"]["home"])
         cls.root_task = RootTask()
+
+    @classmethod
+    def load_containers(cls):
+        if len(cls.config['ftl'].get('home', '')) == 0:
+            return
+        cls.containers = ContainerGraph(cls.config['ftl']['home'])
 
     def load_plugins(self):
         """
@@ -87,10 +93,40 @@ class App(object):
             self.plugins[plugin] = instance = plugin(self)
             instance.load()
 
+    def load_charts(self):
+        """
+        Loads the current charts
+        """
+        # check if ~/.ftl/charts.yaml file exists
+        chart_file_path = os.path.join(
+            self.config['ftl']['chart_data_path']
+        )
+        if os.path.isfile(chart_file_path):
+            # Chart file exists load chart data
+            with open(chart_file_path, 'r') as fh:
+                chart_data = yaml.safe_load(fh.read())
+                if chart_data:
+                    self.config['ftl']['home'] = str(chart_data['charts'][0])
+        else:
+            # Chart file does not exist, so create it
+            try:
+                os.makedirs(os.path.dirname(chart_file_path))
+            except OSError:
+                pass
+            with open(chart_file_path, 'w') as fh:
+                data = {
+                    "charts": [
+                        '',
+                    ],
+                }
+                yaml.safe_dump(data, fh, default_flow_style=False, indent=4)
+
     def load_profiles(self):
         """
         Loads the current profile stack
         """
+        if len(self.config['ftl']['home']) == 0:
+            return
         self.user_profile_path = os.path.join(
             self.config['ftl']['user_profile_home'],
             self.containers.prefix,
@@ -193,9 +229,7 @@ class AppGroup(SpellcheckableAliasableGroup):
 
     def main(self, *args, **kwargs):
         try:
-            if os.environ.get('FTL_HOME') is None:
-                click.echo(RED("FTL_HOME is not set"))
-                sys.exit(1)
+            # TODO: Configure system pre run hooks
             return super(AppGroup, self).main(*args, **kwargs)
         except DockerNotAvailableError as e:
             # Run the failure hooks, printing a default error if nothing is hooked in
@@ -216,6 +250,8 @@ def cli(app):
     """
     # Load config based on CLI parameters
     app.load_config()
+    app.load_charts()
+    app.load_containers()
     app.load_profiles()
 
 

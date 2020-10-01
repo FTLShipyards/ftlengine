@@ -55,6 +55,7 @@ setup(
         boot = src.plugins.boot:BootPlugin
         build = src.plugins.build:BuildPlugin
         build_scripts = src.plugins.build_scripts:BuildScriptsPlugin
+        chart = src.plugins.chart:ChartPlugin
         container = src.plugins.container:ContainerPlugin
         doctor = src.plugins.doctor:DoctorPlugin
         gc = src.plugins.gc:GcPlugin

@@ -19,6 +19,7 @@ class Config(object):
         },
         "ftl": {
             "home": str,
+            'chart_data_path': str,
             "build_log_path": str,
             "user_data_path": str,
             "user_profile_home": str,
@@ -30,7 +31,8 @@ class Config(object):
             "unix://localhost": {},
         },
         "ftl": {
-            "home": os.path.expanduser(os.environ.get("FTL_HOME", ".")),
+            "home": "",
+            "chart_data_path": os.path.expanduser('~/.ftl/charts.yaml'),
             "build_log_path": os.path.expanduser('~/.ftl/{prefix}/build.log'),
             "user_data_path": os.path.expanduser('~/.ftl/{prefix}'),
             "user_profile_home": os.path.expanduser('~/.ftl'),
@@ -55,7 +57,7 @@ class Config(object):
 
     def add_config(self, data, filename):
         """
-        Adds the given config on top of the existing ones. Used uring load
+        Adds the given config on top of the existing ones. Used during load
         and directly for CLI options.
         """
         # Check top level type
