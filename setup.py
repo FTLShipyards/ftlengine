@@ -62,6 +62,7 @@ setup(
         help = src.plugins.help:HelpPlugin
         hosts = src.plugins.hosts:HostsPlugin
         images = src.plugins.images:ImagesPlugin
+        create = src.plugins.ftl-init:FtlInitPlugin
         jump = src.plugins.jump:JumpPlugin
         legacy_env = src.plugins.legacy_env:LegacyEnvPlugin
         mounts = src.plugins.mounts:DevModesPlugin
