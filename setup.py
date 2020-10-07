@@ -57,12 +57,12 @@ setup(
         build_scripts = src.plugins.build_scripts:BuildScriptsPlugin
         chart = src.plugins.chart:ChartPlugin
         container = src.plugins.container:ContainerPlugin
+        create = src.plugins.create:CreatePlugin
         doctor = src.plugins.doctor:DoctorPlugin
         gc = src.plugins.gc:GcPlugin
         help = src.plugins.help:HelpPlugin
         hosts = src.plugins.hosts:HostsPlugin
         images = src.plugins.images:ImagesPlugin
-        create = src.plugins.ftl-init:FtlInitPlugin
         jump = src.plugins.jump:JumpPlugin
         legacy_env = src.plugins.legacy_env:LegacyEnvPlugin
         mounts = src.plugins.mounts:DevModesPlugin
