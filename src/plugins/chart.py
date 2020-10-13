@@ -34,7 +34,15 @@ def chart():
 
 
 @chart.command()
-@click.argument("file_path", required=True)
+@click.argument(
+    "file_path",
+    required=True,
+    type=click.Path(
+        dir_okay=True,
+        resolve_path=True,
+    ),
+    default='.',
+)
 @click.option('-V', '--verbose', count=True, required=False, default=None)
 @click.pass_obj
 def add(app, file_path, verbose):
