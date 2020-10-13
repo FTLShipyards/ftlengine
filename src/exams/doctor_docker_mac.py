@@ -35,9 +35,13 @@ class DockerMacExamination(BaseExamination):
         """
         FTL_HOME folder location
         """
-        ftl_home = os.environ['FTL_HOME']
-        if (re.search(r'\/users\/[a-z0-9\.\-\_]*\/quarkworks/pantheon/.ftl', ftl_home.lower()) is None):
-            raise self.Failure("FTL_HOME should point to ~/quarkworks/pantheon/.ftl")
+        # Check if using old version
+        try:
+            ftl_home = os.environ['FTL_HOME']
+            raise self.Warning(f'Legacy FTL_HOME detected: Run `ftl chart add {ftl_home}`')
+        except KeyError:
+            # FTL_HOME not set: GOOD
+            pass
 
     def check_preferences(self):
         """
