@@ -1,7 +1,6 @@
 import subprocess
 import sys
 import os
-import re
 
 from ..plugins.base import BasePlugin
 from ..plugins.doctor import BaseExamination
