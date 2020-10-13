@@ -11,4 +11,3 @@ class ThreadingTests(unittest.TestCase):
     def test_default(self):
         obj = threading.ExceptionalThread()
         self.assertIsNone(obj.target)
-
