@@ -54,12 +54,15 @@ class DockerMacExamination(BaseExamination):
             ).decode("utf8").strip().split(':')
             number_cpu = int(docker_info[0])
             memory_total = int(docker_info[1])
+            if(number_cpu < 2):
+                raise self.Failure(
+                    "Insufficient number of CPUs, please allocate at least 2 CPUs for Docker For Mac")
             if(number_cpu < 3):
-                raise self.Failure(
-                    "Insufficient number of CPUs, please allocate at least 3 CPUs for Docker For Mac")
-            if(memory_total < 7500000000):
-                raise self.Failure(
-                    "Insufficient memory, please allocate at least 8GB for Docker For Mac")
+                raise self.Warning("3 CPUs recommended with Docker For Mac")
+            if(memory_total < 2000000000):
+                raise self.Failure('Insufficient memory, please allocate at least 2GB for Docker For Mac')
+            if(memory_total < 4000000000):
+                raise self.Warning('4GB memory recommended with Docker For Mac')
         except Exception as e:
             raise self.Failure(
                 "Could not run 'docker info': {}".format(str(e)))
