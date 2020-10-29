@@ -40,6 +40,7 @@ def status(app, host):
     """
     Gives registry status
     """
+    app.print_chart()
     registry_instance = host.images.get_registry(app)
     if registry_instance is None:
         click.echo("No registry is configured on this project.")
@@ -59,6 +60,7 @@ def login(app, host):
     """
     Logs into a registry
     """
+    app.print_chart()
     try:
         registry_instance = host.images.get_registry(app)
         registry_instance.login(host, app.root_task)
@@ -80,4 +82,5 @@ def push(app, host, container, tag):
     """
     Pushes an image up to a registry
     """
+    app.print_chart()
     host.images.push_image_version(app, container.image_name, tag, app.root_task)

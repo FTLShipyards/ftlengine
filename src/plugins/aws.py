@@ -37,10 +37,11 @@ class AwsPlugin(BasePlugin):
         external_secrets_plugins = self.app.get_catalog_items('external_secrets')
         external_secrets_data = self.app.containers.external_secrets
         handler = external_secrets_plugins['aws'](self.app, external_secrets_data)
-        for item in handler.data['aws']['secrets']:
-            for key in item.keys():
-                if key in container.possible_buildargs:
-                    container.buildargs[key] = handler.get_aws_secret(item[key], key)
+        if handler.data:
+            for item in handler.data['aws']['secrets']:
+                for key in item.keys():
+                    if key in container.possible_buildargs:
+                        container.buildargs[key] = handler.get_aws_secret(item[key], key)
         if 'ENV' in container.possible_buildargs and 'ENV' in container.environment:
             # TODO Allow for more possible_buildargs
             container.buildargs['ENV'] = container.environment['ENV']
@@ -107,7 +108,7 @@ class AwsExternalSecretsHandler:
         self.app = app
         # Split the data string into variables
         self.data = data
-        self.region_name = data['aws']['region']
+        self.region_name = data['aws']['region'] if data and data.get('aws') else None
 
     def get_aws_secret(self, name, key):
         """

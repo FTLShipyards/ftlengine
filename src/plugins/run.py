@@ -41,6 +41,7 @@ def run(app, containers, host, tail):
     """
     Runs containers by name, including any dependencies needed
     """
+    app.print_chart()
     profile = app.profiles[1] if app.profiles and len(app.profiles) > 1 else None
     ignore_dependencies = profile.ignore_dependencies if profile else False
     # Get the current formation
@@ -89,6 +90,7 @@ def shell(app, container, host, command, shell_path):
     """
     Runs a single container with foreground enabled and overridden to use bash.
     """
+    app.print_chart()
     profile = app.profiles[1] if app.profiles and len(app.profiles) > 1 else None
     ignore_dependencies = profile.ignore_dependencies if profile else False
     # Get the current formation
@@ -117,6 +119,7 @@ def stop(app, containers, host):
     """
     Stops containers and ones that depend on them
     """
+    app.print_chart()
     formation = FormationIntrospector(host, app.containers).introspect()
     # Look through the formation and remove the containers matching the name
     for instance in list(formation):

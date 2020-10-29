@@ -172,7 +172,7 @@ def build(app, containers, host, cache, recursive, verbose):
     """
     Build container images, along with its build dependencies.
     """
-
+    app.print_chart()
     app.run_hooks(PluginHook.INIT_GROUP_BUILD)
 
     # `ftl build` is equivalent to `ftl build profile`

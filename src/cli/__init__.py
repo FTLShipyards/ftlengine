@@ -9,7 +9,7 @@ import requests
 import yaml
 
 from .alias_group import SpellcheckableAliasableGroup
-from .colors import PURPLE, RED, YELLOW
+from .colors import PURPLE, RED, YELLOW, CYAN, BOLD
 from .tasks import RootTask
 from ..config import Config
 from ..constants import PluginHook
@@ -53,6 +53,12 @@ class App(object):
         if len(cls.config['ftl'].get('home', '')) == 0:
             return
         cls.containers = ContainerGraph(cls.config['ftl']['home'])
+
+    @classmethod
+    def print_chart(cls):
+        if len(cls.config['ftl'].get('home', '')) == 0:
+            return
+        click.echo(CYAN(f'Chart: {YELLOW(BOLD(cls.containers.prefix))}'))
 
     def load_plugins(self):
         """
