@@ -56,8 +56,8 @@ class App(object):
 
     @classmethod
     def print_chart(cls):
-        if len(cls.config['ftl'].get('home', '')) == 0:
-            return
+        if not hasattr(cls, 'containers'):
+            cls.load_containers()
         click.echo(CYAN(f'Chart: {YELLOW(BOLD(cls.containers.prefix))}'))
 
     def load_plugins(self):

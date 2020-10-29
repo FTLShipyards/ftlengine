@@ -34,6 +34,7 @@ def profile(app, name, host):
     """
     Switch to a different profile, or list the active profile's name.
     """
+    app.print_chart()
     if name is None:
         # If no profile is provided, print current profile stack and exit
         if len(app.profiles) > 1:
