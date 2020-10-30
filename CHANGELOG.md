@@ -13,3 +13,8 @@
 - [PATCH] FTL-15 ftl create project plugin (#9)
 - [PATCH] Fix the docs again (#8)
 
+
+0.1.2 (2020-10-30)
+------------------
+- [PATCH] FTL-17 Fix issues with aws plugin (#12)
+
