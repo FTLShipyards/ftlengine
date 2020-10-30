@@ -24,7 +24,7 @@ def jump(app):
     """
     Rebuild and restart profile
     """
-    # click.echo('Stoping...')
+    # app.print_chart()
     app.invoke('stop')
     # click.echo('Building...')
     app.invoke('build')

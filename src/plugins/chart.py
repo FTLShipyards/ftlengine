@@ -63,10 +63,11 @@ def add(app, file_path, verbose):
         with open(os.path.join(app.config['ftl']['chart_data_path']), 'w') as fh:
             yaml.safe_dump(chart_data, fh, default_flow_style=False, indent=4)
             app.config['ftl']['home'] = str(file_path)
-
+        app.load_containers()
     else:
         click.echo(RED(f'File path {file_path} does not appear to be a valid FTL project.'))
         return
+    app.print_chart()
 
 
 @chart.command()

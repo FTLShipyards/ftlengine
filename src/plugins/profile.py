@@ -34,6 +34,7 @@ def profile(app, name, host):
     """
     Switch to a different profile, or list the active profile's name.
     """
+    app.print_chart()
     if name is None:
         # If no profile is provided, print current profile stack and exit
         if len(app.profiles) > 1:
@@ -74,6 +75,7 @@ def up(app, host):
     Start up a profile by booting the default containers.
     Leaves any other containers that are running (shell, ssh-agent, etc.) alone.
     """
+    app.print_chart()
     profile = app.profiles[1] if app.profiles and len(app.profiles) > 1 else None
     ignore_dependencies = profile.ignore_dependencies if profile else False
     if profile:
@@ -111,6 +113,8 @@ def list_profiles(app, verbose):
     List all available profiles.
     """
     # the path where all profiles can be found
+    # click.echo(f'app: {vars(app)}')
+    app.print_chart()
     profiles_home_dir = os.path.join(
         app.config['ftl']['home'],
         "profiles",

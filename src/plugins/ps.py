@@ -26,6 +26,7 @@ def ps(app, host, stats):
     """
     Shows details about all containers currently running
     """
+    app.print_chart()
     # Run the introspector to get the details
     formation = FormationIntrospector(host, app.containers).introspect()
     # Print formation details
