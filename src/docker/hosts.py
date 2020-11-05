@@ -5,6 +5,7 @@ import docker
 import sys
 import subprocess
 import json
+import requests
 
 from distutils.version import LooseVersion
 from ..utils.functional import cached_property, thread_cached_property
@@ -155,6 +156,8 @@ class Host(object):
             self.client.inspect_container(name)
             return True
         except docker.errors.APIError:
+            return False
+        except requests.exceptions.ChunkedEncodingError:
             return False
 
     def container_running(self, name, ignore_exists=False):
