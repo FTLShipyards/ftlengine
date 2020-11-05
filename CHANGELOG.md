@@ -18,3 +18,8 @@
 ------------------
 - [PATCH] FTL-17 Fix issues with aws plugin (#12)
 
+
+0.1.3 (2020-11-05)
+------------------
+- [PATCH] FTL-21 fix requests exception traceback (#14)
+
