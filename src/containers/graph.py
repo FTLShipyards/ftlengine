@@ -38,6 +38,7 @@ class ContainerGraph:
         self.prefix = None
         self.registry = None
         self.external_secrets = None
+        self.domainname = None
         self.plugin_configuration = dict()
         # Work out the path to the configuration file
         self.config_path = os.path.join(self.path, "ftl.yaml")
@@ -65,6 +66,8 @@ class ContainerGraph:
                 self.plugin_configuration = value
             elif key == 'external_secrets':
                 self.external_secrets = value
+            elif key == 'domainname':
+                self.domainname = value
             else:
                 raise BadConfigError(
                     "Unknown key in {}: {}".format(

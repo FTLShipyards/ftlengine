@@ -19,6 +19,8 @@ class ChartPlugin(BasePlugin):
 
     provides = ['chart']
 
+    requires = ['dns']
+
     def load(self):
         self.add_catalog_type('charts')
         # self.add_catalog_item('charts', 'path', ChartHandler)
@@ -68,6 +70,7 @@ def add(app, file_path, verbose):
         click.echo(RED(f'File path {file_path} does not appear to be a valid FTL project.'))
         return
     app.print_chart()
+    app.invoke('dns-configure')
 
 
 @chart.command()
