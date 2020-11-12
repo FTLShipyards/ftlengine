@@ -117,7 +117,6 @@ def dns(app):
     pass
 
 
-
 @dns.command()
 @click.option("--host", "-h", type=HostType(), default="default")
 @click.option('-V', '--verbose', count=True, required=False, default=None)
