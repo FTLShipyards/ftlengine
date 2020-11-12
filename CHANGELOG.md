@@ -23,3 +23,8 @@
 ------------------
 - [PATCH] FTL-21 fix requests exception traceback (#14)
 
+
+0.1.4 (2020-11-12)
+------------------
+- [PATCH] FTL-24 Create new DNS plugin (#16)
+
