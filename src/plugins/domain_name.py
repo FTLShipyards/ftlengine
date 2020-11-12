@@ -4,7 +4,7 @@ import subprocess
 import click
 
 from .base import BasePlugin
-from ..constants import PluginHook
+# from ..constants import PluginHook
 from ..docker.introspect import FormationIntrospector
 from ..cli.argument_types import HostType
 
@@ -27,7 +27,7 @@ class DomainNamePlugin(BasePlugin):
         """
         Checks the /etc/hosts file for the chart's domain name, if provided
         """
-        click.echo(f'<-- START pre_flight_check -->')
+        click.echo('>START pre_flight_check')
         domain_name_plugins = self.app.get_catalog_items('domainname')
         click.echo(f'<--\ndomain_name_plugins: {domain_name_plugins}\n-->')
         domain_name_data = formation.graph.domainname
@@ -65,7 +65,7 @@ class DomainNameHandler:
         domain_name = self.get_domainname()
         if domain_name == '':
             return True  # no domainname configured
-        
+
         with open(self.hostfile_path, 'r') as fh:
             for line in fh:
                 if domain_name in line:
@@ -90,7 +90,7 @@ class DomainNameHandler:
             host_entries = [line for line in fh]
             click.echo(f'>host_entries: {host_entries}')
             # for line in fh:
-                # click.echo(f'line: {line}')
+            #     click.echo(f'line: {line}')
         domain_name = self.data.get('localhost', '')
         click.echo(f'>domain_name: {domain_name}')
         if os.geteuid() == 0:
@@ -114,9 +114,9 @@ def dns(app):
     """
     Allows configuration of localhost domain names
     """
+    pass
 
-        
-    
+
 
 @dns.command()
 @click.option("--host", "-h", type=HostType(), default="default")
@@ -126,24 +126,24 @@ def configure(app, host, verbose):
     """
     Configure local /etc/hosts for localhost domainname defined in root level ftl.yaml
     """
-
-    
-
-    # app.print_chart()
-    click.echo('>START dns configure')
+    app.print_chart()
+    if verbose:
+        click.echo('>START dns configure')
     domain_name_plugins = app.get_catalog_items('domainname')
-    click.echo(f'>domain_name_plugins: {domain_name_plugins}')
     formation = FormationIntrospector(host, app.containers).introspect()
     domain_name_data = formation.graph.domainname
-    click.echo(f'>domain_name_data: {domain_name_data}')
     handler = domain_name_plugins['localhost'](app, domain_name_data)
     domain_name = handler.get_domainname()
-    click.echo(f'>domainname: {domain_name}')
+    if verbose:
+        click.echo(f'>domain_name_plugins: {domain_name_plugins}')
+        click.echo(f'>domain_name_data: {domain_name_data}')
+        click.echo(f'>domainname: {domain_name}')
     if domain_name is None:
         click.echo('No domain name configured')
         return
     localhost_status = handler.check_localhost()
-    click.echo(f'>res: {localhost_status}')
+    if verbose:
+        click.echo(f'>localhost_status: {localhost_status}')
     if localhost_status is True:
         click.echo(f'Domainname: {domain_name} already configured')
         return
@@ -158,4 +158,5 @@ def configure(app, host, verbose):
     except Exception as e:
         click.echo(f'>e: {e}')
     finally:
-        click.echo('>END dns configure')
+        if verbose:
+            click.echo('>END dns configure')
