@@ -108,7 +108,7 @@ class DomainNameHandler:
         click.prompt('>END: configure_localhost_if_needed')
 
 
-@click.group(invoke_without_command=True)
+@click.group()
 @click.pass_obj
 def dns(app):
     """
@@ -147,6 +147,7 @@ def configure(app, host, verbose):
         click.echo(f'Domainname: {domain_name} already configured')
         return
     if os.geteuid() != 0:
+        click.echo(f'Configuring chart domainname: {domain_name} on localhost . . . ')
         subprocess.call(['sudo', 'ftl', 'dns', 'configure'])
         sys.exit()
     try:
