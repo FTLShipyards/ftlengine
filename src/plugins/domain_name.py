@@ -4,7 +4,6 @@ import subprocess
 import click
 
 from .base import BasePlugin
-# from ..constants import PluginHook
 from ..docker.introspect import FormationIntrospector
 from ..cli.argument_types import HostType
 
@@ -19,25 +18,8 @@ class DomainNamePlugin(BasePlugin):
     def load(self):
         self.add_catalog_type('domainname')
         self.add_catalog_item('domainname', 'localhost', DomainNameHandler)
-        # self.add_hook(PluginHook.PRE_GROUP_START, self.pre_flight_check)
         self.add_command(dns)
         self.add_alias(configure, 'dns-configure')
-
-    def pre_flight_check(self, host, formation, task):
-        """
-        Checks the /etc/hosts file for the chart's domain name, if provided
-        """
-        click.echo('>START pre_flight_check')
-        domain_name_plugins = self.app.get_catalog_items('domainname')
-        click.echo(f'<--\ndomain_name_plugins: {domain_name_plugins}\n-->')
-        domain_name_data = formation.graph.domainname
-        click.echo(f'<--\ndomain_name_data: {domain_name_data}\n-->')
-        handler = domain_name_plugins['localhost'](self.app, domain_name_data)
-        domain_status = handler.check_localhost()
-        click.echo(f'>VAR domain_status: {domain_status}\n')
-        click.prompt(f'>domain_status: {domain_status}\n')
-        # click.prompt(f'<-- END pre_flight_check -->')
-        click.echo('>END pre_flight_check')
 
 
 class DomainNameHandler:
@@ -73,39 +55,6 @@ class DomainNameHandler:
                 else:
                     continue
             return False
-            # file_data = [line for line in fh]
-            # if self.data.get('localhost', '') in item for item in file_data:
-            #     return True
-            # else:
-            #     return False
-
-    def configure_localhost_if_needed(self):
-        """
-        If self.data contains a valid domain name string
-        Check the local hosts file if domain configured to resolve to local host
-        If not, then set it
-        """
-        # with task.paused_output():
-        with open('/etc/hosts', 'r') as fh:
-            host_entries = [line for line in fh]
-            click.echo(f'>host_entries: {host_entries}')
-            # for line in fh:
-            #     click.echo(f'line: {line}')
-        domain_name = self.data.get('localhost', '')
-        click.echo(f'>domain_name: {domain_name}')
-        if os.geteuid() == 0:
-            click.echo('>We are root!')
-            try:
-                with open('/etc/hosts', 'a') as fh:
-                    fh.write('# Added by FTLengine\n')
-                    fh.write(f'127.0.0.1\t{domain_name}\n')
-                    fh.write('# End of section\n')
-            except Exception as e:
-                click.echo(f'>e: {e}')
-        else:
-            subprocess.call(['sudo', 'ftl', 'dns', 'configure'])
-            sys.exit()
-        click.prompt('>END: configure_localhost_if_needed')
 
 
 @click.group()
