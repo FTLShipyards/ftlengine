@@ -59,6 +59,7 @@ setup(
         container = src.plugins.container:ContainerPlugin
         create = src.plugins.create:CreatePlugin
         doctor = src.plugins.doctor:DoctorPlugin
+        domain_name = src.plugins.domain_name:DomainNamePlugin
         gc = src.plugins.gc:GcPlugin
         help = src.plugins.help:HelpPlugin
         hosts = src.plugins.hosts:HostsPlugin
