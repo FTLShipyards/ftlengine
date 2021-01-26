@@ -45,6 +45,7 @@ class DomainNameHandler:
         False otherwise
         """
         domain_name = self.get_domainname()
+        # TODO: FTL-39
         if domain_name == '':
             return True  # no domainname configured
 
