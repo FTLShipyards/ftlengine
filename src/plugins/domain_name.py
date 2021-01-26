@@ -45,15 +45,17 @@ class DomainNameHandler:
         False otherwise
         """
         domain_name = self.get_domainname()
+        # TODO: FTL-39
         if domain_name == '':
             return True  # no domainname configured
 
         with open(self.hostfile_path, 'r') as fh:
             for line in fh:
-                if domain_name in line:
-                    return True
-                else:
-                    continue
+                for item in domain_name:
+                    if item in line:
+                        return True
+                    else:
+                        continue
             return False
 
 
@@ -102,7 +104,8 @@ def configure(app, host, verbose):
     try:
         with open('/etc/hosts', 'a') as fh:
             fh.write('# Added by FTLengine\n')
-            fh.write(f'127.0.0.1\t{domain_name}\n')
+            for item in domain_name:
+                fh.write(f'127.0.0.1\t{item}\n')
             fh.write('# End of section\n')
     except Exception as e:
         click.echo(f'>e: {e}')
