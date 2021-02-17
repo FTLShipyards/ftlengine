@@ -33,3 +33,8 @@
 ------------------
 - [PATCH] FTL-29 Allow multiple host names (#18)
 
+
+0.1.6 (2021-02-17)
+------------------
+- [PATCH] FTL-36 FTL-35 Create FTL status command (#20)
+
