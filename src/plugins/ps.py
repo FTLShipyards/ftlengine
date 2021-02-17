@@ -1,8 +1,10 @@
 import attr
 import click
+import os
 
 from .base import BasePlugin
 from ..cli.argument_types import HostType
+from ..cli.colors import CYAN, YELLOW, BOLD, RED
 from ..cli.table import Table
 from ..docker.introspect import FormationIntrospector
 from ..utils import humanize
@@ -76,3 +78,8 @@ def status(app, verbose):
     app.invoke('profile')
     app.invoke('mounts')
     app.invoke('ps')
+    if 'AWS_PROFILE' in os.environ:
+        env_profile = os.getenv('AWS_PROFILE', 'default')
+        click.echo(CYAN(f'eval AWS_PROFILE: {YELLOW(BOLD(env_profile))}'))
+    else:
+        click.echo(CYAN(f'eval AWS_PROFILE: {RED(BOLD("NOT SET"))}'))
