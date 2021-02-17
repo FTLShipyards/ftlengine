@@ -17,6 +17,8 @@ class DevModesPlugin(BasePlugin):
 
     requires = ['up']
 
+    provides = ['mounts']
+
     def load(self):
         self.add_command(mounts)
         self.add_command(mount)

@@ -1,8 +1,10 @@
 import attr
 import click
+import os
 
 from .base import BasePlugin
 from ..cli.argument_types import HostType
+from ..cli.colors import CYAN, YELLOW, BOLD, RED
 from ..cli.table import Table
 from ..docker.introspect import FormationIntrospector
 from ..utils import humanize
@@ -14,8 +16,13 @@ class PsPlugin(BasePlugin):
     Plugin to see what's running right now.
     """
 
+    requires = ['profile', 'mounts']
+
+    provides = ['ps', 'status']
+
     def load(self):
         self.add_command(ps)
+        self.add_command(status)
 
 
 @click.command()
@@ -59,3 +66,20 @@ def ps(app, host, stats):
             for private, public in instance.port_mapping.items()
         ))
         table.print_row(row)
+
+
+@click.command()
+@click.option('-V', '--verbose', count=True, required=False, default=None)
+@click.pass_obj
+def status(app, verbose):
+    """
+    Chains the profile mounts ps commands
+    """
+    app.invoke('profile')
+    app.invoke('mounts')
+    app.invoke('ps')
+    if 'AWS_PROFILE' in os.environ:
+        env_profile = os.getenv('AWS_PROFILE', 'default')
+        click.echo(CYAN(f'eval AWS_PROFILE: {YELLOW(BOLD(env_profile))}'))
+    else:
+        click.echo(CYAN(f'eval AWS_PROFILE: {RED(BOLD("NOT SET"))}'))
