@@ -18,7 +18,7 @@ class ProfilesPlugin(BasePlugin):
     Plugin for managing and switing profiles.
     """
 
-    provides = ['up']
+    provides = ['up', 'profile']
 
     def load(self):
         self.add_command(profile)

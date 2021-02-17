@@ -14,8 +14,13 @@ class PsPlugin(BasePlugin):
     Plugin to see what's running right now.
     """
 
+    requires = ['profile', 'mounts']
+
+    provides = ['ps', 'status']
+
     def load(self):
         self.add_command(ps)
+        self.add_command(status)
 
 
 @click.command()
@@ -59,3 +64,14 @@ def ps(app, host, stats):
             for private, public in instance.port_mapping.items()
         ))
         table.print_row(row)
+
+@click.command()
+@click.option('-V', '--verbose', count=True, required=False, default=None)
+@click.pass_obj
+def status(app, verbose):
+    """
+    Chains the profile mounts ps commands
+    """
+    app.invoke('profile')
+    app.invoke('mounts')
+    app.invoke('ps')
