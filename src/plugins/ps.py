@@ -65,6 +65,7 @@ def ps(app, host, stats):
         ))
         table.print_row(row)
 
+
 @click.command()
 @click.option('-V', '--verbose', count=True, required=False, default=None)
 @click.pass_obj
