@@ -25,8 +25,8 @@ setup(
     ],
     install_requires=[
         'attrs',
-        'boto3==1.16.13',
-        'botocore==1.19.13',
+        'boto3',
+        'botocore',
         'click',
         'docker',
         'dockerpty',
