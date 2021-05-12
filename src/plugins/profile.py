@@ -28,9 +28,9 @@ class ProfilesPlugin(BasePlugin):
 
 @click.command()
 @click.argument('name', required=False)
-@click.option('--host', '-h', type=HostType(), default='default')
+# @click.option('--host', '-h', type=HostType(), default='default')
 @click.pass_obj
-def profile(app, name, host):
+def profile(app, name):
     """
     Switch to a different profile, or list the active profile's name.
     """
