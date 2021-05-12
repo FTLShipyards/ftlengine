@@ -43,3 +43,8 @@
 ------------------
 - [PATCH] Remove package requirements (#22)
 
+
+0.1.8 (2021-05-12)
+------------------
+- [PATCH] removed unused argument (#24)
+
