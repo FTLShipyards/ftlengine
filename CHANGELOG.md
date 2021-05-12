@@ -48,3 +48,8 @@
 ------------------
 - [PATCH] removed unused argument (#24)
 
+
+0.1.9 (2021-05-12)
+------------------
+- [PATCH] add debugging msg (#26)
+
