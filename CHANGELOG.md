@@ -38,3 +38,8 @@
 ------------------
 - [PATCH] FTL-36 FTL-35 Create FTL status command (#20)
 
+
+0.1.7 (2021-05-12)
+------------------
+- [PATCH] Remove package requirements (#22)
+
