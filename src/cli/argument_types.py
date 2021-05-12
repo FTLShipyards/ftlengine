@@ -1,5 +1,5 @@
 import attr
-from click import Choice
+from click import Choice, echo
 from . import App
 from .spell import spell_correct
 from .colors import PURPLE, CYAN
