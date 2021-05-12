@@ -39,6 +39,7 @@ class SpellCorrectChoice(Choice):
     def get_missing_message(self, param, value=None):
         message = super(SpellCorrectChoice, self).get_missing_message(param)
         if value:
+            click.echo(f'\nvalue: {value}\nself.choices: {self.choices}\n')
             suggestion = spell_correct(value, self.choices)
             if suggestion:
                 message += "\nare you looking for: {suggestion}?".format(suggestion=CYAN(suggestion))
