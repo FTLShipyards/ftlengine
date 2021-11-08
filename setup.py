@@ -35,7 +35,7 @@ setup(
         'requests',
         'scandir',
         'six',
-        'urllib3==1.25.11',
+        'urllib3==1.26.7',
     ],
     test_suite='tests',
     setup_requires=[
