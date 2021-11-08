@@ -58,3 +58,8 @@
 -------------------
 - [PATCH] trying something (#28)
 
+
+0.1.11 (2021-11-08)
+-------------------
+- [PATCH] update urllib3 pinned version (#30)
+
